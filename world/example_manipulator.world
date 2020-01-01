@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+
+    <world name="default">
+        <include>
+            <uri>model://ground_plane</uri>
+        </include>
+
+        <!-- Global light source -->
+        <include>
+            <uri>model://sun</uri>
+        </include>
+
+        <!-- The welding robot -->
+        <include>
+            <uri>model://example_manipulator</uri>
+            <pose>0 0 1 0 0 0</pose>
+        </include>
+
+        <!-- Anchors to the world -->
+        <model name="anchor">
+            <joint name="world_to_example_manipulator" type="fixed">
+                <parent>world</parent>
+                <child>example_manipulator::body</child>
+            </joint>
+        </model>
+
+        <!-- camera angle -->
+        <gui fullscreen='0'>
+            <camera name='user_camera'>
+                <pose>0.7 -0.5 1.2 0.0 1.0 2.5</pose>
+                <view_controller>orbit</view_controller>
+            </camera>
+            <!-- track_visual has been supported in gazebo8 -->
+            <!-->
+            <camera name='tracking_camera'>
+                <track_visual>
+                    <name>gestalt</name>
+                    <min_dist>1.0</min_dist>
+                    <max_dist>3.0</max_dist>
+                    <xyz>-2.0 0.0 1.0</xyz>
+                </track_visual>
+            </camera>
+                                                                                                                <!-->
+        </gui>
+
+    </world>
+</sdf>

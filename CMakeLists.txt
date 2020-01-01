@@ -152,6 +152,46 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
+function(generate_gazebo_model name)
+  # Directory for model files
+  file(
+    MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/model/${name}
+  )
+
+  # Generation of model.config
+  string(
+    CONCAT ${name}_CONFIG_CONTENT
+    "<?xml version=\"1.0\" ?>\n"
+    "<model>\n"
+    "    <name>" ${name} "</name>\n"
+    "    <version>1.0</version>\n"
+    "    <sdf version=\"1.5\">model.sdf</sdf>\n"
+    "    <author>\n"
+    "        <name></name>\n"
+    "        <email></email>\n"
+    "    </author>\n"
+    "    <description></description>\n"
+    "</model>"
+  )
+  file(
+    GENERATE 
+    OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/model/${name}/model.config
+    CONTENT ${${name}_CONFIG_CONTENT}
+  )
+
+  # Generation of model.sdf
+  add_custom_target(
+    ${name}_model ALL
+    COMMAND ${CATKIN_ENV} xacro urdf/${name}.urdf.xacro -o model/${name}/model.urdf
+    COMMAND gz sdf -p model/${name}/model.urdf > model/${name}/model.sdf
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    SOURCES urdf/${name}.urdf.xacro
+  )
+endfunction(generate_gazebo_model)
+
+# Generation of the model 'example_manipulator'
+generate_gazebo_model(example_manipulator)
+
 #############
 ## Install ##
 #############

@@ -1,0 +1,43 @@
+<launch>
+
+    <!-- The robot description -->
+    <param name="robot_description" command="xacro $(find computed_torque_controller_example)/urdf/example_manipulator.urdf.xacro" />
+
+    <!-- Hardware driver -->
+    <node name="example_layered_hardware_node" pkg="layered_hardware" type="layered_hardware_node" output="screen">
+        <rosparam>
+            control_frequency: 20
+            use_expected_period: true
+            # upper (controller-side) to bottom (actuator-side)
+            layers: [ joint_limits_layer, transmission_layer, actuator_layer ]
+            joint_limits_layer:
+                type: layered_hardware/JointLimitsLayer
+            transmission_layer:
+                type: layered_hardware/TransmissionLayer
+            actuator_layer:
+                type: layered_hardware/DummyEffortActuatorLayer
+                actuators: [ shoulder_actuator, elbow_actuator, wrist_actuator ]
+        </rosparam>
+    </node>
+
+    <!-- Controller parameters -->
+    <rosparam>
+        joint_state_controller:
+            type: joint_state_controller/JointStateController
+            publish_rate: 20
+        computed_torque_controller:
+            type: computed_torque_controller/ComputedTorqueController
+            joints:
+                shoulder:
+                    p: 1.
+                elbow:
+                    p: 1.
+                wrist:
+                    p: 1.
+    </rosparam>
+
+    <!-- Controller starter -->
+    <node name="controller_starter" pkg="controller_manager" type="controller_manager" output="screen"
+          args="spawn joint_state_controller computed_torque_controller" />
+
+</launch>
