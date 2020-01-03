@@ -28,7 +28,7 @@
         <!-- camera angle -->
         <gui fullscreen='0'>
             <camera name='user_camera'>
-                <pose>0.7 -0.5 1.2 0.0 1.0 2.5</pose>
+                <pose>0.5 -1.5 1.0 0 0 1.5708</pose>
                 <view_controller>orbit</view_controller>
             </camera>
             <!-- track_visual has been supported in gazebo8 -->
