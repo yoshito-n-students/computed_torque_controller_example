@@ -24,13 +24,13 @@
             joints:
                 shoulder:
                     p: 40.
-                    d: 12.
+                    d: 15.
                 elbow:
-                    p: 20.
-                    d: 6.
+                    p: 30.
+                    d: 10.
                 wrist:
-                    p: 10.
-                    d: 3.
+                    p: 15.
+                    d: 5.
     </rosparam>
 
     <!-- Controller starter -->
