@@ -1,24 +1,18 @@
 <launch>
 
+    <param name="/use_sim_time" value="true"/>
+
+    <!-- gzserver -->
+    <node name="gazebo" pkg="gazebo_ros" type="gzserver" output="screen"
+          args="-u $(find computed_torque_controller_example)/world/example_manipulator.world">
+        <remap from="/example_manipulator" to="/" />
+    </node>
+
+    <!-- gzclient-->
+    <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen" />
+
     <!-- The robot description -->
     <param name="robot_description" command="xacro $(find computed_torque_controller_example)/urdf/example_manipulator.urdf.xacro" />
-
-    <!-- Hardware driver -->
-    <node name="example_layered_hardware_node" pkg="layered_hardware" type="layered_hardware_node" output="screen">
-        <rosparam>
-            control_frequency: 20
-            use_expected_period: true
-            # upper (controller-side) to bottom (actuator-side)
-            layers: [ joint_limits_layer, transmission_layer, actuator_layer ]
-            joint_limits_layer:
-                type: layered_hardware/JointLimitsLayer
-            transmission_layer:
-                type: layered_hardware/TransmissionLayer
-            actuator_layer:
-                type: layered_hardware/DummyEffortActuatorLayer
-                actuators: [ shoulder_actuator, elbow_actuator, wrist_actuator ]
-        </rosparam>
-    </node>
 
     <!-- Controller parameters -->
     <rosparam>
@@ -29,11 +23,14 @@
             type: computed_torque_controller/ComputedTorqueController
             joints:
                 shoulder:
-                    p: 1.
+                    p: 40.
+                    d: 12.
                 elbow:
-                    p: 1.
+                    p: 20.
+                    d: 6.
                 wrist:
-                    p: 1.
+                    p: 10.
+                    d: 3.
     </rosparam>
 
     <!-- Controller starter -->
