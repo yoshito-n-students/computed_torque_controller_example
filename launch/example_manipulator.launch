@@ -19,25 +19,25 @@
         joint_state_controller:
             type: joint_state_controller/JointStateController
             publish_rate: 20
-        computed_torque_controller:
-            type: computed_torque_controller/ComputedTorqueController
+        position_joint_controller:
+            type: computed_torque_controller/PositionJointController
             joints:
                 shoulder:
-                    p: 40.
-                    i: 5.
+                    p: 200.
+                    i: 0.
                     d: 30.
                 elbow:
-                    p: 40.
-                    i: 5.
+                    p: 200.
+                    i: 0.
                     d: 30.
                 wrist:
-                    p: 40.
-                    i: 5.
+                    p: 200.
+                    i: 0.
                     d: 30.
     </rosparam>
 
     <!-- Controller starter -->
     <node name="controller_starter" pkg="controller_manager" type="controller_manager" output="screen"
-          args="spawn joint_state_controller computed_torque_controller" />
+          args="spawn joint_state_controller position_joint_controller" />
 
 </launch>
