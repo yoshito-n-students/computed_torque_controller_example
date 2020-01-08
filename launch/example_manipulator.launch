@@ -34,6 +34,21 @@
                     p: 200.
                     i: 0.
                     d: 30.
+        velocity_joint_controller:
+            type: computed_torque_controllers/VelocityJointController
+            joints:
+                shoulder:
+                    p: 200.
+                    i: 0.
+                    d: 30.
+                elbow:
+                    p: 200.
+                    i: 0.
+                    d: 30.
+                wrist:
+                    p: 200.
+                    i: 0.
+                    d: 30.
     </rosparam>
 
     <!-- Controller starter -->
