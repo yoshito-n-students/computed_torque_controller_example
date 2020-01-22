@@ -12,7 +12,7 @@
     <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen" />
 
     <!-- The robot description -->
-    <param name="robot_description" command="xacro $(find computed_torque_controllers_example)/urdf/example_manipulator.urdf.xacro" />
+    <param name="robot_description" command="xacro $(find computed_torque_controllers_example)/urdf/example_manipulator.urdf.xacro fixed_base_link:=true" />
 
     <!-- Controller parameters -->
     <rosparam>

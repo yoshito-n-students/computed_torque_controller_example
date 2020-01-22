@@ -1,5 +1,10 @@
 <robot name="example_manipulator" xmlns:xacro="http://wiki.ros.org/xacro">
 
+    <!-- Args -->
+
+    <xacro:arg name="fixed_base_link" default="false" />
+    <xacro:property name="do_fix_base_link" value="$(arg fixed_base_link)" />
+
     <!-- Macros -->
 
     <xacro:macro name="make_box_link" params="name mass size_x size_y size_z">
@@ -44,6 +49,23 @@
     <xacro:property name="TORAD" value="${3.14159265359 / 180}" />
 
     <!-- Links & joints -->
+
+    <xacro:if value="${do_fix_base_link}">
+        <link name="world">
+            <inertial>
+                <origin xyz="0 0 0" />
+                <mass value="1000" />
+                <inertia ixx="100" ixy="0" ixz="0"
+                         iyy="100" iyz="0"
+                         izz="100" />
+            </inertial>
+        </link>
+
+        <joint name="anchor" type="fixed">
+            <parent link="world" />
+            <child link="body" />
+        </joint>
+    </xacro:if>
 
     <xacro:make_box_link name="body" mass="1." size_x="0.2" size_y="0.2" size_z="0.2" />
 
