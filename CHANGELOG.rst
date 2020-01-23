@@ -2,6 +2,11 @@
 Changelog for package computed_torque_controllers_example
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.4 (2020-01-23)
+------------------
+* Tested with computed_torque_controllers v0.0.4
+* Added example configs for VelocityTaskSpaceController
+
 0.0.3 (2020-01-09)
 ------------------
 * Tested with computed_torque_controllers v0.0.3
