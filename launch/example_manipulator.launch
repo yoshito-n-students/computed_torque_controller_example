@@ -64,6 +64,10 @@
                     p: 200.
                     i: 0.
                     d: 30.
+            task_space:
+                linear:
+                    has_velocity_limits: true
+                    max_velocity: 0.05
     </rosparam>
 
     <!-- Controller starter -->
