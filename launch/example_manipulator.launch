@@ -51,38 +51,6 @@
                     d: 30.
         velocity_task_space_controller:
             type: computed_torque_controllers/VelocityTaskSpaceController
-            joints:
-                shoulder:
-                    p: 200.
-                    i: 0.
-                    d: 30.
-                elbow:
-                    p: 200.
-                    i: 0.
-                    d: 30.
-                wrist:
-                    p: 200.
-                    i: 0.
-                    d: 30.
-            task_space:
-                linear:
-                    has_velocity_limits: true
-                    max_velocity: 0.05
-        position_task_space_controller:
-            type: computed_torque_controllers/PositionTaskSpaceController
-            joints:
-                shoulder:
-                    p: 200.
-                    i: 0.
-                    d: 30.
-                elbow:
-                    p: 200.
-                    i: 0.
-                    d: 30.
-                wrist:
-                    p: 200.
-                    i: 0.
-                    d: 30.
             task_space:
                 linear:
                     p: 10.
@@ -92,12 +60,27 @@
                     p: 10.
                     has_velocity_limits: true
                     max_velocity: 0.1
+        position_task_space_controller:
+            type: computed_torque_controllers/PositionTaskSpaceController
+            task_space:
+                linear:
+                    p: 5.
+                    i: 0.
+                    d: 1.
+                    has_velocity_limits: true
+                    max_velocity: 0.05
+                angular:
+                    p: 10.
+                    i: 0.
+                    d: 1.5
+                    has_velocity_limits: true
+                    max_velocity: 0.1
     </rosparam>
 
     <!-- Controller starter -->
     <node name="controller_spawner" pkg="controller_manager" type="controller_manager" output="screen"
-          args="spawn joint_state_controller position_joint_controller" />
+          args="spawn joint_state_controller position_task_space_controller" />
     <node name="controller_loader" pkg="controller_manager" type="controller_manager" output="screen"
-          args="load velocity_joint_controller velocity_task_space_controller position_task_space_controller" />
+          args="load position_joint_controller velocity_joint_controller velocity_task_space_controller" />
 
 </launch>
