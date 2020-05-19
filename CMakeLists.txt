@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(computed_torque_controllers_example)
+project(task_space_controllers_example)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -9,9 +9,10 @@ project(computed_torque_controllers_example)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   controller_manager
-  computed_torque_controllers
   gazebo_ros
   gazebo_ros_control
+  joint_space_controllers
+  task_space_controllers
   xacro
 )
 
@@ -106,7 +107,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES computed_torque_controllers_example
+#  LIBRARIES task_space_controllers_example
 #  CATKIN_DEPENDS computed_torque_controller gazebo_ros gazebo_ros_control xacro
 #  DEPENDS system_lib
 )
@@ -124,7 +125,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/computed_torque_controllers_example.cpp
+#   src/${PROJECT_NAME}/task_space_controllers_example.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -135,7 +136,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/computed_torque_controllers_example_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/task_space_controllers_example_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -239,7 +240,7 @@ generate_gazebo_model(example_manipulator)
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_computed_torque_controllers_example.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_task_space_controllers_example.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

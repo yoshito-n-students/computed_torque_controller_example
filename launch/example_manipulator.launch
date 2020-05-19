@@ -4,7 +4,7 @@
 
     <!-- gzserver -->
     <node name="gazebo" pkg="gazebo_ros" type="gzserver" output="screen"
-          args="-u $(find computed_torque_controllers_example)/world/example_manipulator.world">
+          args="-u $(find task_space_controllers_example)/world/example_manipulator.world">
         <remap from="/example_manipulator" to="/" />
     </node>
 
@@ -12,7 +12,7 @@
     <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen" />
 
     <!-- The robot description -->
-    <param name="robot_description" command="xacro $(find computed_torque_controllers_example)/urdf/example_manipulator.urdf.xacro fixed_base_link:=true" />
+    <param name="robot_description" command="xacro $(find task_space_controllers_example)/urdf/example_manipulator.urdf.xacro fixed_base_link:=true" />
 
     <!-- Controller parameters -->
     <rosparam>
@@ -20,7 +20,7 @@
             type: joint_state_controller/JointStateController
             publish_rate: 20
         velocity_joint_controller:
-            type: computed_torque_controllers/VelocityJointController
+            type: joint_space_controllers/EffortBasedVelocityController
             joints:
                 shoulder:
                     p: 200.
@@ -35,7 +35,7 @@
                     i: 0.
                     d: 30.
         position_joint_controller:
-            type: computed_torque_controllers/PositionJointController
+            type: joint_space_controllers/EffortBasedPositionController
             joints:
                 shoulder:
                     p: 200.
@@ -49,8 +49,8 @@
                     p: 200.
                     i: 0.
                     d: 30.
-        velocity_task_space_controller:
-            type: computed_torque_controllers/VelocityTaskSpaceController
+        twist_task_space_controller:
+            type: task_space_controllers/EffortBasedTwistController
             task_space:
                 linear:
                     p: 10.
@@ -60,8 +60,8 @@
                     p: 10.
                     has_velocity_limits: true
                     max_velocity: 0.1
-        position_task_space_controller:
-            type: computed_torque_controllers/PositionTaskSpaceController
+        pose_task_space_controller:
+            type: task_space_controllers/EffortBasedPoseController
             task_space:
                 linear:
                     p: 5.
@@ -79,8 +79,8 @@
 
     <!-- Controller starter -->
     <node name="controller_spawner" pkg="controller_manager" type="controller_manager" output="screen"
-          args="spawn joint_state_controller position_task_space_controller" />
+          args="spawn joint_state_controller pose_task_space_controller" />
     <node name="controller_loader" pkg="controller_manager" type="controller_manager" output="screen"
-          args="load position_joint_controller velocity_joint_controller velocity_task_space_controller" />
+          args="load position_joint_controller velocity_joint_controller twist_task_space_controller" />
 
 </launch>
